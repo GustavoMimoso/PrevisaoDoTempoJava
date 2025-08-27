@@ -1,62 +1,73 @@
 # Projeto Previsão do Tempo Java
 
-Este projeto é uma aplicação Java simples que consome a API do OpenWeatherMap para obter a previsão do tempo de uma cidade especificada.
+Este projeto é uma aplicação Java para consultar a previsão do tempo de uma cidade utilizando a API OpenWeatherMap.
 
 ---
 
-## Descrição
+## O que foi feito até agora
 
-Este projeto demonstra como fazer requisições HTTP em Java, processar dados JSON e apresentar informações do clima em tempo real, utilizando a API pública do OpenWeatherMap. É ideal para iniciantes que querem aprender a integrar APIs em Java.
-
----
-
-## Funcionalidades
-
-- Requisição de dados da API OpenWeatherMap via HTTP GET
-- Processamento da resposta JSON (ainda na próxima etapa)
-- Mostra as informações básicas do tempo para uma cidade
-- Interface simples pelo console
+- Criação da classe `WeatherApiClient` para fazer requisições HTTP na API externa.
+- Implementação da codificaçao do nome da cidade para URL para evitar erros.
+- Tratamento do status HTTP para garantir que só parseia JSON em respostas válidas.
+- Utilização da biblioteca **Gson** para fazer o parsing dos dados JSON e extrair informações como temperatura, descrição do tempo, umidade e velocidade do vento.
+- Configuração do ambiente VS Code para Java, incluindo criação do arquivo `.vscode/settings.json` para referenciar o JAR do Gson e evitar erros de importação.
+- Orientação para compilar e executar o programa incluindo o JAR do Gson no classpath.
+- Uso correto do Git para versionar o projeto e sincronizar com o repositório remoto no GitHub, incluindo resolução do erro de push usando `git pull --rebase` antes do push.
 
 ---
 
-## Tecnologias
+## Como executar o programa
 
-- Java 11+ (HttpClient)
-- VS Code (IDE sugerida)
-- API OpenWeatherMap
+1. Configure sua chave da API OpenWeatherMap no arquivo `WeatherApiClient.java` na variável `API_KEY`.
+2. Baixe o arquivo `gson-2.10.1.jar` e coloque na pasta raiz do projeto ou em uma pasta `lib`.
+3. Compile o programa com:
 
----
-
-## Como usar
-
-1. Clone ou baixe este repositório.
-2. Abra a pasta no VS Code.
-3. Instale o Extension Pack for Java no VS Code.
-4. Configure o JDK 11 ou superior e defina a variável JAVA_HOME.
-5. Obtenha uma chave gratuita no [OpenWeatherMap](https://openweathermap.org/api).
-6. No arquivo `WeatherApiClient.java`, substitua `SUA_CHAVE_API_AQUI` pela sua chave.
-7. Compile e execute:
-javac WeatherApiClient.java
-java WeatherApiClient
+javac -cp ".;gson-2.10.1.jar" WeatherApiClient.java
 
 text
+
+4. Execute com:
+
+java -cp ".;gson-2.10.1.jar" WeatherApiClient
+
+text
+
+5. No VS Code, a extensão Java reconhecerá o Gson automaticamente pela configuração em `.vscode/settings.json`.
+
+---
+
+## Configuração do ambiente VS Code
+
+- Criar arquivo `.vscode/settings.json` com o seguinte conteúdo:
+
+{
+"java.project.referencedLibraries": [
+"lib/**/*.jar",
+"gson-2.10.1.jar"
+]
+}
+
+text
+
+- Reinicie o VS Code após criar/alterar este arquivo para aplicar as configurações.
 
 ---
 
 ## Próximos passos
 
-- Fazer o parsing do JSON e extrair os dados relevantes.
-- Desenvolvimento de uma interface gráfica simples.
-- Tratar erros e inputs inválidos.
+- Tornar o programa interativo, recebendo o nome da cidade via entrada do usuário.
+- Melhorar estrutura do código para tratamento de erros mais robusto.
+- Criar testes automatizados.
+- Explorar outras funcionalidades da API OpenWeatherMap.
 
 ---
 
 ## Autor
 
-Gustavo Henrique de Souza Mimoso - gustavomimoso@outlook.com
+Gustavo Mimoso - gustavomimoso@outlook.com
 
 ---
 
 ## Licença
 
-Este projeto está sob licença MIT - veja o arquivo LICENSE para detalhes.
+Projeto sob licença MIT - veja arquivo LICENSE para detalhes.
