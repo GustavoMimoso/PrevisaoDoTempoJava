@@ -4,6 +4,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -14,7 +16,13 @@ public class WeatherApiClient {
 
     public static void main(String[] args) {
         try {
-            String city = "Sao Paulo";
+
+            //Entrada do Usuário
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Digite o nome da cidade: ");
+            String city = scanner.nextLine();
+            scanner.close();
+
             String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
 
             URI uri = new URI("https", "api.openweathermap.org", "/data/2.5/weather",
