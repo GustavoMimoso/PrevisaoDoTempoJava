@@ -1,73 +1,102 @@
 # Projeto Previsão do Tempo Java
 
-Este projeto é uma aplicação Java para consultar a previsão do tempo de uma cidade utilizando a API OpenWeatherMap.
+Este projeto é uma aplicação Java que consulta a previsão do tempo de uma cidade utilizando a API OpenWeatherMap, mostrando os dados no console. Projeto ideal para iniciantes aprenderem sobre requisições HTTP, manipulação de JSON e integração com APIs externas.
 
 ---
 
-## O que foi feito até agora
+## Funcionalidades
 
-- Criação da classe `WeatherApiClient` para fazer requisições HTTP na API externa.
-- Implementação da codificaçao do nome da cidade para URL para evitar erros.
-- Tratamento do status HTTP para garantir que só parseia JSON em respostas válidas.
-- Utilização da biblioteca **Gson** para fazer o parsing dos dados JSON e extrair informações como temperatura, descrição do tempo, umidade e velocidade do vento.
-- Configuração do ambiente VS Code para Java, incluindo criação do arquivo `.vscode/settings.json` para referenciar o JAR do Gson e evitar erros de importação.
-- Orientação para compilar e executar o programa incluindo o JAR do Gson no classpath.
-- Uso correto do Git para versionar o projeto e sincronizar com o repositório remoto no GitHub, incluindo resolução do erro de push usando `git pull --rebase` antes do push.
-
----
-
-## Como executar o programa
-
-1. Configure sua chave da API OpenWeatherMap no arquivo `WeatherApiClient.java` na variável `API_KEY`.
-2. Baixe o arquivo `gson-2.10.1.jar` e coloque na pasta raiz do projeto ou em uma pasta `lib`.
-3. Compile o programa com:
-
-javac -cp ".;gson-2.10.1.jar" WeatherApiClient.java
-
-text
-
-4. Execute com:
-
-java -cp ".;gson-2.10.1.jar" WeatherApiClient
-
-text
-
-5. No VS Code, a extensão Java reconhecerá o Gson automaticamente pela configuração em `.vscode/settings.json`.
+- Requisição dos dados de clima pelo nome da cidade digitada pelo usuário.
+- Parsing da resposta JSON usando a biblioteca Gson.
+- Exibição dos dados principais: nome da cidade, temperatura, descrição do tempo, umidade, velocidade do vento.
+- Tratamento de erros da API (exibe mensagem em caso de cidade inválida ou problemas de conexão).
+- Configuração facilitada do ambiente de desenvolvimento no VS Code para reconhecer bibliotecas externas.
+- Projeto pronto para compilar e executar via linha de comando ou terminal integrado.
 
 ---
 
-## Configuração do ambiente VS Code
+## Como executar
 
-- Criar arquivo `.vscode/settings.json` com o seguinte conteúdo:
+1. Instale o Java JDK (versão 11 ou superior) na máquina.
+2. Faça download do arquivo `gson-2.10.1.jar` (biblioteca Gson) e coloque na pasta raiz do projeto ou em `lib/`.
+3. Garanta que existe o arquivo `.vscode/settings.json` com o seguinte conteúdo:
 
-{
-"java.project.referencedLibraries": [
-"lib/**/*.jar",
-"gson-2.10.1.jar"
-]
-}
+    ```
+    {
+      "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "gson-2.10.1.jar"
+      ]
+    }
+    ```
+
+4. No arquivo `WeatherApiClient.java`, insira sua chave de API em `private static final String API_KEY = "SUA_CHAVE_API_AQUI";`
+5. Compile o projeto pelo terminal integrado ou CMD na pasta do projeto:
+
+    ```
+    javac -cp ".;gson-2.10.1.jar" WeatherApiClient.java
+    ```
+
+6. Rode o programa e digite o nome da cidade quando solicitado:
+
+    ```
+    java -cp ".;gson-2.10.1.jar" WeatherApiClient
+    ```
+
+---
+
+## Exemplo de uso
+
+Digite o nome da cidade: Salvador
+Status HTTP: 200
+Resposta JSON completa: {"coord": ... }
+Cidade: Salvador
+Temperatura: 26.45°C
+Descrição do tempo: céu limpo
+Umidade: 79%
+Velocidade do vento: 4.5 m/s
 
 text
 
-- Reinicie o VS Code após criar/alterar este arquivo para aplicar as configurações.
+---
+
+## Estrutura do projeto
+
+PrevisaoDoTempoJava/
+├── WeatherApiClient.java
+├── gson-2.10.1.jar
+└── .vscode/
+└── settings.json
+
+text
+
+---
+
+## Histórico de atualizações
+
+- Projeto iniciado com .java e conexão HTTP.
+- Inclusão do parsing JSON com Gson e configuração do VS Code.
+- Programa agora interativo: usuário digita o nome da cidade.
+- Todos os erros anteriores corrigidos e README.md atualizado.
+- Orientação para comandos básicos do Git: add, commit, push e resolução de conflitos.
 
 ---
 
 ## Próximos passos
 
-- Tornar o programa interativo, recebendo o nome da cidade via entrada do usuário.
-- Melhorar estrutura do código para tratamento de erros mais robusto.
-- Criar testes automatizados.
-- Explorar outras funcionalidades da API OpenWeatherMap.
+- Aprimorar tratamento de erros (mensagens customizadas para problemas de conexão e cidade não encontrada).
+- Permitir múltiplas consultas sem fechar o programa.
+- Adicionar testes automatizados e modularização do código.
+- Explorar recursos extras da API, como previsão de vários dias.
 
 ---
 
 ## Autor
 
-Gustavo Mimoso - gustavomimoso@outlook.com
+Gustavo Mimoso
 
 ---
 
 ## Licença
 
-Projeto sob licença MIT - veja arquivo LICENSE para detalhes.
+Projeto sob licença MIT. Consulte o arquivo LICENSE para detalhes.
