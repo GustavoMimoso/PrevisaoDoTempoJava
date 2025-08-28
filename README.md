@@ -1,60 +1,70 @@
 # Projeto Previsão do Tempo Java
 
-Este projeto é uma aplicação Java que consulta a previsão do tempo de uma cidade utilizando a API OpenWeatherMap, mostrando os dados no console. Projeto ideal para iniciantes aprenderem sobre requisições HTTP, manipulação de JSON e integração com APIs externas.
+Este projeto é uma aplicação Java para consultar a previsão do tempo de uma cidade via API OpenWeatherMap, exibindo os dados no console. Ideal para aprender requisições HTTP, manipulação JSON e integração com APIs.
 
 ---
 
 ## Funcionalidades
 
-- Requisição dos dados de clima pelo nome da cidade digitada pelo usuário.
-- Parsing da resposta JSON usando a biblioteca Gson.
-- Exibição dos dados principais: nome da cidade, temperatura, descrição do tempo, umidade, velocidade do vento.
-- Tratamento de erros da API (exibe mensagem em caso de cidade inválida ou problemas de conexão).
-- Configuração facilitada do ambiente de desenvolvimento no VS Code para reconhecer bibliotecas externas.
-- Projeto pronto para compilar e executar via linha de comando ou terminal integrado.
+- Consulta interativa: usuário digita o nome da cidade várias vezes, até digitar "sair" para encerrar.
+- Parsing da resposta JSON utilizando Gson.
+- Exibição de dados principais: nome da cidade, temperatura, descrição do tempo, umidade e velocidade do vento.
+- Tratamento de erros da API.
+- Configuração da biblioteca Gson no ambiente VS Code.
+- Comandos para compilar e executar com o JAR do Gson.
+- Uso do Git para versionamento e atualização no GitHub.
 
 ---
 
 ## Como executar
 
-1. Instale o Java JDK (versão 11 ou superior) na máquina.
-2. Faça download do arquivo `gson-2.10.1.jar` (biblioteca Gson) e coloque na pasta raiz do projeto ou em `lib/`.
-3. Garanta que existe o arquivo `.vscode/settings.json` com o seguinte conteúdo:
+1. Tenha o Java JDK (11 ou superior) instalado.
+2. Baixe `gson-2.10.1.jar` e coloque na pasta raiz do projeto ou em `lib/`.
+3. Configure `.vscode/settings.json` com:
 
-    ```
-    {
-      "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "gson-2.10.1.jar"
-      ]
-    }
-    ```
+{
+"java.project.referencedLibraries": [
+"lib/**/*.jar",
+"gson-2.10.1.jar"
+]
+}
 
-4. No arquivo `WeatherApiClient.java`, insira sua chave de API em `private static final String API_KEY = "SUA_CHAVE_API_AQUI";`
-5. Compile o projeto pelo terminal integrado ou CMD na pasta do projeto:
+text
 
-    ```
-    javac -cp ".;gson-2.10.1.jar" WeatherApiClient.java
-    ```
+4. Insira sua chave de API no `WeatherApiClient.java`:
 
-6. Rode o programa e digite o nome da cidade quando solicitado:
+private static final String API_KEY = "SUA_CHAVE_API_AQUI";
 
-    ```
-    java -cp ".;gson-2.10.1.jar" WeatherApiClient
-    ```
+text
+
+5. Compile:
+
+javac -cp ".;gson-2.10.1.jar" WeatherApiClient.java
+
+text
+
+6. Execute e digite o nome das cidades que desejar:
+
+java -cp ".;gson-2.10.1.jar" WeatherApiClient
+
+text
+
+Digite `sair` para encerrar o programa.
 
 ---
 
 ## Exemplo de uso
 
-Digite o nome da cidade: Salvador
+Digite o nome da cidade (ou 'sair' para encerrar): Rio de Janeiro
 Status HTTP: 200
-Resposta JSON completa: {"coord": ... }
-Cidade: Salvador
-Temperatura: 26.45°C
+Cidade: Rio de Janeiro
+Temperatura: 25.5°C
 Descrição do tempo: céu limpo
-Umidade: 79%
-Velocidade do vento: 4.5 m/s
+Umidade: 68%
+Velocidade do vento: 5.1 m/s
+
+Digite o nome da cidade (ou 'sair' para encerrar): sair
+Finalizando o programa!
 
 text
 
@@ -65,6 +75,7 @@ text
 PrevisaoDoTempoJava/
 ├── WeatherApiClient.java
 ├── gson-2.10.1.jar
+├── README.md
 └── .vscode/
 └── settings.json
 
@@ -72,22 +83,12 @@ text
 
 ---
 
-## Histórico de atualizações
-
-- Projeto iniciado com .java e conexão HTTP.
-- Inclusão do parsing JSON com Gson e configuração do VS Code.
-- Programa agora interativo: usuário digita o nome da cidade.
-- Todos os erros anteriores corrigidos e README.md atualizado.
-- Orientação para comandos básicos do Git: add, commit, push e resolução de conflitos.
-
----
-
 ## Próximos passos
 
-- Aprimorar tratamento de erros (mensagens customizadas para problemas de conexão e cidade não encontrada).
-- Permitir múltiplas consultas sem fechar o programa.
-- Adicionar testes automatizados e modularização do código.
-- Explorar recursos extras da API, como previsão de vários dias.
+- Melhorar tratamento de erros e validação de entrada.
+- Adicionar previsão para vários dias.
+- Implementar testes unitários.
+- Modularizar o código.
 
 ---
 
