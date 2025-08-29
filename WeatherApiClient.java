@@ -20,24 +20,55 @@ public class WeatherApiClient {
         Gson gson = new Gson();
 
         while (true) {
-            System.out.print("Digite o nome da cidade (ou 'sair' para encerrar): ");
-            String city = scanner.nextLine().trim();
+            System.out.println("Escolha o tipo de consulta:");
+            System.out.println("1 - Pelo nome da cidade");
+            System.out.println("2 - Por coordenadas (latitude e longitude)");
+            System.out.println("Digite 'sair' para encerrar o programa.");
+            System.out.print("Opção: ");
+            String option = scanner.nextLine().trim();
 
-            if (city.isEmpty()) {
-                System.out.println("Entrada vazia! Por favor, digite o nome de uma cidade válida.");
-                continue;
-            }
-            if (city.equalsIgnoreCase("sair")) {
+            if (option.equalsIgnoreCase("sair")) {
                 System.out.println("Programa encerrado.");
                 break;
             }
 
-            try {
-                String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+            String city = null;
+            Double lat = null;
+            Double lon = null;
 
-                // 1) Obter dados atuais para mostrar nascer/pôr do sol
-                URI uriCurrent = new URI("https", "api.openweathermap.org", "/data/2.5/weather",
-                        "q=" + encodedCity + "&units=metric&lang=pt_br&appid=" + API_KEY, null);
+            if (option.equals("1")) {
+                System.out.print("Digite o nome da cidade: ");
+                city = scanner.nextLine().trim();
+                if (city.isEmpty()) {
+                    System.out.println("Entrada vazia! Por favor, digite o nome de uma cidade válida.");
+                    continue;
+                }
+            } else if (option.equals("2")) {
+                try {
+                    System.out.print("Digite a latitude: ");
+                    lat = Double.parseDouble(scanner.nextLine().trim());
+                    System.out.print("Digite a longitude: ");
+                    lon = Double.parseDouble(scanner.nextLine().trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("Latitude ou longitude inválidas! Tente novamente.");
+                    continue;
+                }
+            } else {
+                System.out.println("Opção inválida, tente novamente.");
+                continue;
+            }
+
+            try {
+                URI uriCurrent;
+                if (city != null) {
+                    String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+                    uriCurrent = new URI("https", "api.openweathermap.org", "/data/2.5/weather",
+                            "q=" + encodedCity + "&units=metric&lang=pt_br&appid=" + API_KEY, null);
+                } else {
+                    uriCurrent = new URI("https", "api.openweathermap.org", "/data/2.5/weather",
+                            "lat=" + lat + "&lon=" + lon + "&units=metric&lang=pt_br&appid=" + API_KEY, null);
+                }
+
                 HttpRequest reqCurrent = HttpRequest.newBuilder().uri(uriCurrent).build();
                 HttpResponse<String> respCurrent = client.send(reqCurrent, HttpResponse.BodyHandlers.ofString());
 
@@ -48,7 +79,6 @@ public class WeatherApiClient {
 
                 JsonObject currentJson = gson.fromJson(respCurrent.body(), JsonObject.class);
 
-                // Extrair dados atuais importantes
                 String cityName = currentJson.get("name").getAsString();
                 JsonObject main = currentJson.getAsJsonObject("main");
                 double temp = main.get("temp").getAsDouble();
@@ -60,7 +90,6 @@ public class WeatherApiClient {
                 long sunrise = sys.get("sunrise").getAsLong() * 1000;
                 long sunset = sys.get("sunset").getAsLong() * 1000;
 
-                // Mostrar dados atuais
                 System.out.printf("Clima atual em %s:%n", cityName);
                 System.out.printf("Temperatura: %.1f°C%n", temp);
                 System.out.printf("Descrição: %s%n", description);
@@ -68,14 +97,12 @@ public class WeatherApiClient {
                 System.out.printf("Nascer do sol: %s%n", new java.util.Date(sunrise).toString());
                 System.out.printf("Pôr do sol: %s%n", new java.util.Date(sunset).toString());
 
-                // Extrair coordenadas para buscar previsão
                 JsonObject coord = currentJson.getAsJsonObject("coord");
-                double lat = coord.get("lat").getAsDouble();
-                double lon = coord.get("lon").getAsDouble();
+                double latCoord = coord.get("lat").getAsDouble();
+                double lonCoord = coord.get("lon").getAsDouble();
 
-                // 2) Obter previsão 5 dias / 3h
                 String forecastParams = String.format("lat=%.4f&lon=%.4f&units=metric&lang=pt_br&appid=%s",
-                        lat, lon, API_KEY);
+                        latCoord, lonCoord, API_KEY);
                 URI uriForecast = new URI("https", "api.openweathermap.org", "/data/2.5/forecast", forecastParams, null);
                 HttpRequest reqForecast = HttpRequest.newBuilder().uri(uriForecast).build();
                 HttpResponse<String> respForecast = client.send(reqForecast, HttpResponse.BodyHandlers.ofString());
