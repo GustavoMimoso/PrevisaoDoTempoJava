@@ -6,21 +6,24 @@ Aplicação Java para consultar e exibir a previsão do tempo usando a API OpenW
 
 ## Funcionalidades
 
-- Consulta interativa por cidade, com opção de encerrar digitando "sair".
-- Exibição do clima atual com temperatura, descrição, umidade, velocidade do vento.
-- Exibição do nascer e pôr do sol na cidade consultada.
-- Previsão detalhada para os próximos 5 dias, a cada 3 horas.
-- Tratamento de erros da API e entrada do usuário.
-- Configuração do ambiente VS Code para trabalhar com Gson.
-- Código pronto para compilação e execução via linha de comando.
+- Interface gráfica Swing com:
+  - Pesquisa por nome da cidade.
+  - Pesquisa por coordenadas (latitude e longitude).
+  - Exibição do clima atual com temperatura, descrição, umidade, velocidade do vento.
+  - Exibição de nascer e pôr do sol.
+  - Previsão detalhada para os próximos dias (a cada 3 horas).
+- Tratamento de erros amigável na interface.
+- Código modularizado para fácil manutenção.
+- Uso da biblioteca Gson para parsing JSON.
+- Pronto para rodar via linha de comando com JAR do Gson incluído.
 
 ---
 
 ## Como configurar o ambiente
 
-1. Instale o Java JDK 11 ou superior.
-2. Baixe o arquivo `gson-2.10.1.jar` e coloque na raiz do projeto ou dentro da pasta `lib`.
-3. Crie o arquivo `.vscode/settings.json` com o conteúdo:
+1. Instale Java JDK 11 ou superior.
+2. Baixe `gson-2.10.1.jar` e coloque na raiz do projeto ou em `lib/`.
+3. Configure `.vscode/settings.json` para referenciar o JAR Gson:
 
 {
 "java.project.referencedLibraries": [
@@ -35,27 +38,26 @@ text
 
 ## Como compilar e executar
 
-1. No terminal, compile:
+1. Compile a interface gráfica:
 
-javac -cp ".;gson-2.10.1.jar" WeatherApiClient.java
+javac -cp ".;gson-2.10.1.jar" WeatherAppGUI.java
 
 text
 
 2. Execute:
 
-java -cp ".;gson-2.10.1.jar" WeatherApiClient
+java -cp ".;gson-2.10.1.jar" WeatherAppGUI
 
 text
-
-Digite uma cidade para consultar o clima e previsão, ou digite `sair` para encerrar.
 
 ---
 
 ## Estrutura do projeto
 
 PrevisaoDoTempoJava/
-├── WeatherApiClient.java
-├── gson-2.10.1.jar
+├── WeatherApiClient.java # Código console tradicional (opcional)
+├── WeatherAppGUI.java # Interface gráfica Swing principal
+├── gson-2.10.1.jar # Biblioteca Gson para JSON parsing
 ├── README.md
 └── .vscode/
 └── settings.json
@@ -66,40 +68,21 @@ text
 
 ## Exemplos de uso
 
-Digite o nome da cidade (ou 'sair' para encerrar): São Paulo
-Clima atual em São Paulo:
-Temperatura: 19.7°C
-Descrição: poucas nuvens
-Umidade: 81%
-Nascer do sol: Thu Aug 28 06:02:06 BRT 2025
-Pôr do sol: Thu Aug 28 17:33:16 BRT 2025
-
-Previsão para os próximos dias (a cada 3 horas):
-2025-08-28 15:00:00 - 20.0°C - céu claro - Umidade: 80% - Vento: 3.5 m/s
-2025-08-28 18:00:00 - 18.5°C - céu claro - Umidade: 78% - Vento: 2.8 m/s
-...
-
-Digite o nome da cidade (ou 'sair' para encerrar):
-
-text
+- Digite o nome de uma cidade e clique em "Consultar Cidade" para obter previsão.
+- Ou informe latitude e longitude e clique em "Consultar Coordenadas".
+- O resultado aparecerá na área de texto abaixo dos campos.
 
 ---
 
 ## Próximos passos
 
-- Adicionar suporte para busca por coordenadas geográficas.
-- Criar interface gráfica simples.
-- Melhorar tratamento e logs de erro.
-- Adicionar testes unitários.
+- Adicionar logs detalhados e tratamento avançado de exceções.
+- Criar testes unitários para os métodos de consulta.
+- Explorar melhorias de UI como tema escuro, seleção de unidades, etc.
+- Adicionar suporte para previsão estendida semanal via API One Call.
 
 ---
 
 ## Autor
 
 Gustavo Mimoso
-
----
-
-## Licença
-
-Licenciado sob MIT. Consulte LICENSE para mais informações.
