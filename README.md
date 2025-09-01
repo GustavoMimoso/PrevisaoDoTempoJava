@@ -1,34 +1,50 @@
 # Projeto Previsão do Tempo Java
 
-Aplicação Java para consultar e exibir a previsão do tempo usando a API OpenWeatherMap.
+Aplicação Java com interface gráfica Swing para consultar e exibir a previsão do tempo usando a API OpenWeatherMap.
 
 ---
 
 ## Funcionalidades
 
-- Interface gráfica Swing com:
-  - Pesquisa por nome da cidade.
-  - Pesquisa por coordenadas (latitude e longitude).
-  - Exibição do clima atual com temperatura, descrição, umidade, velocidade do vento.
-  - Exibição de nascer e pôr do sol.
-  - Previsão detalhada para os próximos dias (a cada 3 horas).
-- Tratamento de erros amigável na interface.
-- Código modularizado para fácil manutenção.
-- Uso da biblioteca Gson para parsing JSON.
-- Pronto para rodar via linha de comando com JAR do Gson incluído.
+- Interface gráfica moderna com FlatLaf (versão 3.6)  
+- Tema escuro/claro dinamicamente alternável  
+- Pesquisa por nome da cidade  
+- Pesquisa por coordenadas (latitude e longitude)  
+- Seleção de unidades: Celsius, Fahrenheit, Kelvin  
+- Exibição do clima atual: temperatura, descrição, umidade, nascer e pôr do sol  
+- Previsão estendida para os próximos 7 dias via One Call API  
+- Logging detalhado em console e arquivo (`weather_app.log`)  
+- Requisições em segundo plano com SwingWorker  
+- Tratamento avançado de exceções  
+
+---
+
+## Estrutura do projeto
+
+PrevisaoDoTempoJava/
+├── WeatherAppGUI.java # Interface gráfica principal
+├── gson-2.10.1.jar # Biblioteca Gson para JSON parsing
+├── flatlaf-3.6.jar # FlatLaf Look and Feel
+├── README.md
+└── .vscode/
+└── settings.json
+
+text
 
 ---
 
 ## Como configurar o ambiente
 
-1. Instale Java JDK 11 ou superior.
-2. Baixe `gson-2.10.1.jar` e coloque na raiz do projeto ou em `lib/`.
-3. Configure `.vscode/settings.json` para referenciar o JAR Gson:
+1. Instale Java JDK 11 ou superior.  
+2. Baixe as dependências e coloque na pasta do projeto:  
+   - `gson-2.10.1.jar`  
+   - `flatlaf-3.6.jar`  
+3. Configure o VS Code em `.vscode/settings.json`:
 
 {
 "java.project.referencedLibraries": [
-"lib/**/*.jar",
-"gson-2.10.1.jar"
+"gson-2.10.1.jar",
+"flatlaf-3.6.jar"
 ]
 }
 
@@ -38,29 +54,17 @@ text
 
 ## Como compilar e executar
 
-1. Compile a interface gráfica:
+No **Windows**:
 
-javac -cp ".;gson-2.10.1.jar" WeatherAppGUI.java
-
-text
-
-2. Execute:
-
-java -cp ".;gson-2.10.1.jar" WeatherAppGUI
+javac -cp ".;gson-2.10.1.jar;flatlaf-3.6.jar" WeatherAppGUI.java
+java -cp ".;gson-2.10.1.jar;flatlaf-3.6.jar" WeatherAppGUI
 
 text
 
----
+No **Linux/Mac**:
 
-## Estrutura do projeto
-
-PrevisaoDoTempoJava/
-├── WeatherApiClient.java # Código console tradicional (opcional)
-├── WeatherAppGUI.java # Interface gráfica Swing principal
-├── gson-2.10.1.jar # Biblioteca Gson para JSON parsing
-├── README.md
-└── .vscode/
-└── settings.json
+javac -cp ".:gson-2.10.1.jar:flatlaf-3.6.jar" WeatherAppGUI.java
+java -cp ".:gson-2.10.1.jar:flatlaf-3.6.jar" WeatherAppGUI
 
 text
 
@@ -68,18 +72,20 @@ text
 
 ## Exemplos de uso
 
-- Digite o nome de uma cidade e clique em "Consultar Cidade" para obter previsão.
-- Ou informe latitude e longitude e clique em "Consultar Coordenadas".
-- O resultado aparecerá na área de texto abaixo dos campos.
+1. Execute o programa para abrir a janela gráfica.  
+2. Digite uma cidade e clique em **Consultar Cidade** ou informe coordenadas e clique em **Consultar Coordenadas**.  
+3. Use o menu **Unidades** para alternar entre °C, °F ou K.  
+4. Clique no botão de tema para alternar entre modo escuro e claro.  
+5. Veja o clima atual e a previsão estendida de 7 dias no painel abaixo.  
 
 ---
 
 ## Próximos passos
 
-- Adicionar logs detalhados e tratamento avançado de exceções.
-- Criar testes unitários para os métodos de consulta.
-- Explorar melhorias de UI como tema escuro, seleção de unidades, etc.
-- Adicionar suporte para previsão estendida semanal via API One Call.
+- Criar testes unitários (JUnit) para métodos de consulta.  
+- Adicionar logs de métricas de desempenho.  
+- Melhorar UI com ícones e responsividade.  
+- Implementar cache local para reduzir chamadas à API.  
 
 ---
 
